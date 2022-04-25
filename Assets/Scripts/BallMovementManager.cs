@@ -72,12 +72,14 @@ public class BallMovementManager : MonoBehaviour
             // Goal del Paddle2
             data.jugador = "Paddle2";
             mGoalScored?.Invoke(this, data);
+            GetComponent<TrailRenderer>().enabled = false;
         }
         else 
         {
             // Goal del Paddle1
             data.jugador = "Paddle1";
             mGoalScored?.Invoke(this, data);
+            GetComponent<TrailRenderer>().enabled = false;
         }
         
     }

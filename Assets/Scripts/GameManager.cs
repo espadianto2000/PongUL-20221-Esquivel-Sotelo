@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     {
         mBallMovementManager = ball.GetComponent<BallMovementManager>();
         mBallMovementManager.AddGoalScoredDelegate(OnGoalScoredDelegate);
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()
@@ -65,6 +66,7 @@ public class GameManager : MonoBehaviour
     private void StartGame()
     {
         ball.SetActive(true);
+        ball.GetComponent<TrailRenderer>().enabled = true;
         //reiniciar movimiento de paddles
         paddle1.GetComponent<MovementManager>().reiniciar();
         if (ia)
