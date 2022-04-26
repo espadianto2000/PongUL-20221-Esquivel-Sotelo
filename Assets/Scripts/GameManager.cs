@@ -37,6 +37,23 @@ public class GameManager : MonoBehaviour
         {
             StartGame();
         }
+        if(mRunning && Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            //activar poder paddle1
+            paddle1.GetComponent<MovementManager>().activarPoder();
+        }
+        if(mRunning && Input.GetKeyDown(KeyCode.RightShift))
+        {
+            //activar poder paddle2
+            if (ia)
+            {
+                //paddle2.GetComponent<PaddleIA>().activarPoder();
+            }
+            else
+            {
+                paddle2.GetComponent<MovementManager>().activarPoder();
+            }
+        }
         if ((Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl)))
         {
             if (!ia)
@@ -45,6 +62,12 @@ public class GameManager : MonoBehaviour
                 ia = true;
                 if (mRunning)
                 {
+                    paddle2.GetComponent<PaddleIA>().poder = paddle2.GetComponent<MovementManager>().poder;
+                    paddle2.GetComponent<PaddleIA>().enCooldown = paddle2.GetComponent<MovementManager>().enCooldown;
+                    paddle2.GetComponent<PaddleIA>().timer = paddle2.GetComponent<MovementManager>().timer;
+                    paddle2.GetComponent<PaddleIA>().cooldown = paddle2.GetComponent<MovementManager>().cooldown;
+                    paddle2.GetComponent<PaddleIA>().limite = paddle2.GetComponent<MovementManager>().limite;
+                    paddle2.GetComponent<PaddleIA>().speed = paddle2.GetComponent<MovementManager>().speed/5;
                     paddle2.GetComponent<PaddleIA>().activo = true;
                     paddle2.GetComponent<MovementManager>().moverse = false;
                 }
@@ -55,6 +78,12 @@ public class GameManager : MonoBehaviour
                 ia = false;
                 if (mRunning)
                 {
+                    paddle2.GetComponent<MovementManager>().poder = paddle2.GetComponent<PaddleIA>().poder;
+                    paddle2.GetComponent<MovementManager>().enCooldown = paddle2.GetComponent<PaddleIA>().enCooldown;
+                    paddle2.GetComponent<MovementManager>().timer = paddle2.GetComponent<PaddleIA>().timer;
+                    paddle2.GetComponent<MovementManager>().cooldown = paddle2.GetComponent<PaddleIA>().cooldown;
+                    paddle2.GetComponent<MovementManager>().limite = paddle2.GetComponent<PaddleIA>().limite;
+                    paddle2.GetComponent<MovementManager>().speed = 5* paddle2.GetComponent<PaddleIA>().speed;
                     paddle2.GetComponent<PaddleIA>().activo = false;
                     paddle2.GetComponent<MovementManager>().moverse = true;
                 }

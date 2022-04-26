@@ -6,6 +6,12 @@ public class PaddleIA : MonoBehaviour
 {
     public GameObject ball;
     public bool activo = false;
+    public float speed = 5;
+    public float limite = 8;
+    public float timer = 0;
+    public float cooldown = 0;
+    public bool poder = true;
+    public bool enCooldown = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,20 +23,72 @@ public class PaddleIA : MonoBehaviour
     {
         if(activo && ball.GetComponent<BallMovementManager>().speed.x>0)
         {
-            if(transform.position.y <= 8 && transform.position.y >= -8)
+            if(transform.position.y <= limite && transform.position.y >= -limite)
             {
-                transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, ball.transform.position.y, 0), 4.5f * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, ball.transform.position.y, 0), speed * Time.deltaTime);
             }
-            else if(transform.position.y < -8) { transform.position = new Vector3(transform.position.x, -8, 0); }
-            else { transform.position = new Vector3(transform.position.x, 8, 0); }
-            
+            else if(transform.position.y < -limite) { transform.position = new Vector3(transform.position.x, -limite, 0); }
+            else { transform.position = new Vector3(transform.position.x, limite, 0); }
+            if(ball.transform.position.x > 9 && Mathf.Abs(transform.position.y - ball.transform.position.y) > 3)
+            {
+                activarPoder();
+            }
+        }
+        if (activo)
+        {
+            if (timer > 0)
+            {
+                timer -= Time.deltaTime;
+            }
+            else
+            {
+                if (!enCooldown && !poder)
+                {
+                    desactivarPoder();
+                    cooldown = 30;
+                    enCooldown = true;
+                }
+            }
+            if (cooldown > 0 && enCooldown)
+            {
+                cooldown -= Time.deltaTime;
+            }
+            else if (cooldown <= 0 && enCooldown)
+            {
+                if (!poder)
+                {
+                    enCooldown = false;
+                    poder = true;
+                }
+            }
         }
     }
 
     public void reiniciar()
     {
+        timer = 0;
+        cooldown = 0;
+        poder = true;
+        enCooldown = false;
+        desactivarPoder();
         transform.position = new Vector3(transform.position.x, 0, 0);
         activo = true;
     }
-
+    public void activarPoder()
+    {
+        if (poder)
+        {
+            poder = false;
+            speed = 7;
+            transform.localScale = new Vector3(transform.localScale.x, 6, 1);
+            limite = 7;
+            timer = 5;
+        }
+    }
+    public void desactivarPoder()
+    {
+        speed = 5;
+        transform.localScale = new Vector3(transform.localScale.x, 4, 1);
+        limite = 8;
+    }
 }

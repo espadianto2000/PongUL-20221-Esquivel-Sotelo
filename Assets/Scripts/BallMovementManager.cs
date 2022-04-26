@@ -43,11 +43,23 @@ public class BallMovementManager : MonoBehaviour
         {
             mAudioSource.clip = paddleCollisionSound;
             mAudioSource.Play();
-            speed = new Vector3(
-                -speed.x,
+            if(speed.x < 0)
+            {
+                speed = new Vector3(
+                -(speed.x-0.25f),
                 UnityEngine.Random.Range(-10f, 10f),
                 0f
-            );
+                );
+            }
+            else
+            {
+                speed = new Vector3(
+                -(speed.x + 0.25f),
+                UnityEngine.Random.Range(-10f, 10f),
+                0f
+                );
+            }
+            
         }else if (collision.gameObject.CompareTag("Wall"))
         {
             mAudioSource.clip = wallCollisionSound;
