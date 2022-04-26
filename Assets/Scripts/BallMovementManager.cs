@@ -74,26 +74,28 @@ public class BallMovementManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Goal!
-        mAudioSource.clip = goalSound;
-        mAudioSource.Play();
-        mIsMoving = false;
-        GoalScoredData data = new GoalScoredData();
-        if (collision.gameObject.name == "LeftWall")
+        if (collision.CompareTag("Goal"))
         {
-            // Goal del Paddle2
-            data.jugador = "Paddle2";
-            mGoalScored?.Invoke(this, data);
-            GetComponent<TrailRenderer>().enabled = false;
+            // Goal!
+            mAudioSource.clip = goalSound;
+            mAudioSource.Play();
+            mIsMoving = false;
+            GoalScoredData data = new GoalScoredData();
+            if (collision.gameObject.name == "LeftWall")
+            {
+                // Goal del Paddle2
+                data.jugador = "Paddle2";
+                mGoalScored?.Invoke(this, data);
+                GetComponent<TrailRenderer>().enabled = false;
+            }
+            else if (collision.gameObject.name == "RightWall")
+            {
+                // Goal del Paddle1
+                data.jugador = "Paddle1";
+                mGoalScored?.Invoke(this, data);
+                GetComponent<TrailRenderer>().enabled = false;
+            }
         }
-        else 
-        {
-            // Goal del Paddle1
-            data.jugador = "Paddle1";
-            mGoalScored?.Invoke(this, data);
-            GetComponent<TrailRenderer>().enabled = false;
-        }
-        
     }
 
     public void StartGame()

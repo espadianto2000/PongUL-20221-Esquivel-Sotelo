@@ -32,11 +32,19 @@ public class MovementManager : MonoBehaviour
             }
 
             Vector3 actualPos = GetComponent<Transform>().position;
-            GetComponent<Transform>().position = new Vector3(
+            /*GetComponent<Transform>().position = new Vector3(
                     actualPos.x,
                     Mathf.Clamp(actualPos.y + (speed * movement * Time.deltaTime), -limite, limite),
                     actualPos.z
-            );
+            );*/
+            if (transform.position.y <= limite && transform.position.y >= -limite)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, new Vector3(actualPos.x, actualPos.y + 10, actualPos.z), movement * speed * Time.deltaTime);
+            }
+            else if (transform.position.y < -limite) { transform.position = new Vector3(transform.position.x, -limite, 0); }
+            else { transform.position = new Vector3(transform.position.x, limite, 0); }
+
+
             if (timer > 0)
             {
                 timer -= Time.deltaTime;
@@ -80,7 +88,7 @@ public class MovementManager : MonoBehaviour
         if (poder)
         {
             poder = false;
-            speed = 35;
+            speed = 17;
             transform.localScale = new Vector3(transform.localScale.x, 6, 1);
             limite = 7;
             timer = 5;
@@ -88,7 +96,7 @@ public class MovementManager : MonoBehaviour
     }
     public void desactivarPoder()
     {
-        speed = 25;
+        speed = 12;
         transform.localScale = new Vector3(transform.localScale.x, 4, 1);
         limite = 8;
     }

@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
                     paddle2.GetComponent<PaddleIA>().timer = paddle2.GetComponent<MovementManager>().timer;
                     paddle2.GetComponent<PaddleIA>().cooldown = paddle2.GetComponent<MovementManager>().cooldown;
                     paddle2.GetComponent<PaddleIA>().limite = paddle2.GetComponent<MovementManager>().limite;
-                    paddle2.GetComponent<PaddleIA>().speed = paddle2.GetComponent<MovementManager>().speed/5;
+                    paddle2.GetComponent<PaddleIA>().speed = paddle2.GetComponent<MovementManager>().speed -7;
                     paddle2.GetComponent<PaddleIA>().activo = true;
                     paddle2.GetComponent<MovementManager>().moverse = false;
                 }
@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
                     paddle2.GetComponent<MovementManager>().timer = paddle2.GetComponent<PaddleIA>().timer;
                     paddle2.GetComponent<MovementManager>().cooldown = paddle2.GetComponent<PaddleIA>().cooldown;
                     paddle2.GetComponent<MovementManager>().limite = paddle2.GetComponent<PaddleIA>().limite;
-                    paddle2.GetComponent<MovementManager>().speed = 5* paddle2.GetComponent<PaddleIA>().speed;
+                    paddle2.GetComponent<MovementManager>().speed = paddle2.GetComponent<PaddleIA>().speed +7;
                     paddle2.GetComponent<PaddleIA>().activo = false;
                     paddle2.GetComponent<MovementManager>().moverse = true;
                 }
