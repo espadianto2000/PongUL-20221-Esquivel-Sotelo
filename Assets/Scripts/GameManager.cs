@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
     private void StartGame()
     {
         ball.SetActive(true);
-        ball.GetComponent<TrailRenderer>().enabled = true;
+        
         //reiniciar movimiento de paddles
         paddle1.GetComponent<MovementManager>().reiniciar();
         if (ia)
@@ -118,7 +118,6 @@ public class GameManager : MonoBehaviour
     public void OnGoalScoredDelegate(object sender, EventArgs e)
     {
         Debug.Log("Goal");
-
         // Actualizar los score
         GoalScoredData data = e as GoalScoredData;
         if (data.jugador == "Paddle1")

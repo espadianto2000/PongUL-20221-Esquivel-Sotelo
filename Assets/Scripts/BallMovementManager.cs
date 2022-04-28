@@ -76,6 +76,7 @@ public class BallMovementManager : MonoBehaviour
     {
         if (collision.CompareTag("Goal"))
         {
+            GetComponent<TrailRenderer>().Clear();
             // Goal!
             mAudioSource.clip = goalSound;
             mAudioSource.Play();
@@ -86,14 +87,12 @@ public class BallMovementManager : MonoBehaviour
                 // Goal del Paddle2
                 data.jugador = "Paddle2";
                 mGoalScored?.Invoke(this, data);
-                GetComponent<TrailRenderer>().enabled = false;
             }
             else if (collision.gameObject.name == "RightWall")
             {
                 // Goal del Paddle1
                 data.jugador = "Paddle1";
                 mGoalScored?.Invoke(this, data);
-                GetComponent<TrailRenderer>().enabled = false;
             }
         }
     }
@@ -101,6 +100,7 @@ public class BallMovementManager : MonoBehaviour
     public void StartGame()
     {
         transform.position = new Vector3(0f, 0f, 0f);
+        GetComponent<TrailRenderer>().Clear();
         int caso = UnityEngine.Random.Range(0, 2);
         switch (caso)
         {
