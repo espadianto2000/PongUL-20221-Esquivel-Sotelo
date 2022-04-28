@@ -47,7 +47,7 @@ public class PaddleIA : MonoBehaviour
             else if(transform.position.y < -limite) { transform.position = new Vector3(transform.position.x, -limite, 0); }
             else { transform.position = new Vector3(transform.position.x, limite, 0); }
             
-            if((ball.transform.position.x > 9 && Mathf.Abs(transform.position.y - posicionEsperada) > 4.5f) || (ball.transform.position.x > 11 && Mathf.Abs(transform.position.y - posicionEsperada) > 3f))
+            if((ball.transform.position.x > 9 && Mathf.Abs(transform.position.y - posicionEsperada) > 5f) || (ball.transform.position.x > 11 && Mathf.Abs(transform.position.y - posicionEsperada) > 3f))
             {
                 activarPoder();
             }

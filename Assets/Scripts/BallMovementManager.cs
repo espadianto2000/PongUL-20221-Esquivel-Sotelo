@@ -20,12 +20,12 @@ public class BallMovementManager : MonoBehaviour
 
     private event EventHandler mGoalScored;
     private bool mIsMoving = true;
-    private AudioSource mAudioSource;
+    public AudioSource mAudioSource;
 
     private void Start()
     {
         //StartGame();
-        mAudioSource = GetComponent<AudioSource>();
+        //mAudioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -102,6 +102,10 @@ public class BallMovementManager : MonoBehaviour
         transform.position = new Vector3(0f, 0f, 0f);
         GetComponent<TrailRenderer>().Clear();
         int caso = UnityEngine.Random.Range(0, 2);
+        if (mAudioSource.isPlaying)
+        {
+            mAudioSource?.Stop();
+        }
         switch (caso)
         {
             case 0:

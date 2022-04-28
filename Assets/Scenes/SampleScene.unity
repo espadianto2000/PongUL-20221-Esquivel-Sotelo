@@ -2818,10 +2818,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialSpeed: {x: -10, y: 0, z: 0}
-  goalSound: {fileID: 8300000, guid: 5420930736a35c84ab953aba523f696e, type: 3}
-  paddleCollisionSound: {fileID: 8300000, guid: 9a1f285b73e512542a5ee3690ff4a026, type: 3}
-  wallCollisionSound: {fileID: 8300000, guid: 616966180a44ae2419462fdabe4acb98, type: 3}
+  goalSound: {fileID: 8300000, guid: cdb20f9d56757d144a819b832094dca1, type: 3}
+  paddleCollisionSound: {fileID: 8300000, guid: 6dca3b9d7c06f8345afcd55f5b35967b, type: 3}
+  wallCollisionSound: {fileID: 8300000, guid: 6014bcc5e964a2940803eb95e861126b, type: 3}
   speed: {x: 0, y: 0, z: 0}
+  mAudioSource: {fileID: 1741037220}
 --- !u!58 &1741037218
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2869,7 +2870,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 616966180a44ae2419462fdabe4acb98, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.2
   m_Pitch: 1
