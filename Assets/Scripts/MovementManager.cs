@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum TipoJugador
 {
@@ -15,6 +16,7 @@ public class MovementManager : MonoBehaviour
     public float cooldown = 0;
     public bool poder = true;
     public bool enCooldown = false;
+    public GameObject cooldownPoderUI;
 
     private void Update()
     {
@@ -48,6 +50,8 @@ public class MovementManager : MonoBehaviour
             if (timer > 0)
             {
                 timer -= Time.deltaTime;
+                cooldownPoderUI.transform.GetChild(1).gameObject.SetActive(false);
+                cooldownPoderUI.transform.GetChild(2).gameObject.SetActive(true);
             }
             else
             {
@@ -56,16 +60,22 @@ public class MovementManager : MonoBehaviour
                     desactivarPoder();
                     cooldown = 30;
                     enCooldown = true;
+                    cooldownPoderUI.transform.GetChild(1).gameObject.SetActive(true);
+                    cooldownPoderUI.transform.GetChild(2).gameObject.SetActive(false);
+                    cooldownPoderUI.transform.GetChild(3).gameObject.SetActive(true);
                 }
             }
             if(cooldown > 0 && enCooldown)
             {
                 cooldown -= Time.deltaTime;
+                cooldownPoderUI.transform.GetChild(0).GetComponent<Image>().fillAmount = 1f - (cooldown/30f);
             }
             else if(cooldown<=0 && enCooldown)
             {
                 if (!poder)
                 {
+                    cooldownPoderUI.transform.GetChild(0).GetComponent<Image>().fillAmount = 1;
+                    cooldownPoderUI.transform.GetChild(3).gameObject.SetActive(false);
                     enCooldown = false;
                     poder = true;
                 }
@@ -80,6 +90,10 @@ public class MovementManager : MonoBehaviour
         poder = true;
         enCooldown=false;
         desactivarPoder();
+        cooldownPoderUI.transform.GetChild(1).gameObject.SetActive(true);
+        cooldownPoderUI.transform.GetChild(2).gameObject.SetActive(false);
+        cooldownPoderUI.transform.GetChild(3).gameObject.SetActive(false);
+        cooldownPoderUI.transform.GetChild(0).GetComponent<Image>().fillAmount = 1;
         transform.position = new Vector3(transform.position.x, 0, 0);
         moverse = true;
     }

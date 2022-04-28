@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PaddleIA : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class PaddleIA : MonoBehaviour
     public float posicionEsperada;
     private float temp = 0;
     public bool seguirDestino=false;
+    public GameObject cooldownPoderUI;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,7 +47,7 @@ public class PaddleIA : MonoBehaviour
             else if(transform.position.y < -limite) { transform.position = new Vector3(transform.position.x, -limite, 0); }
             else { transform.position = new Vector3(transform.position.x, limite, 0); }
             
-            if((ball.transform.position.x > 9 && Mathf.Abs(transform.position.y - posicionEsperada) > 4) || (ball.transform.position.x > 11.25f && Mathf.Abs(transform.position.y - posicionEsperada) > 2.5f))
+            if((ball.transform.position.x > 9 && Mathf.Abs(transform.position.y - posicionEsperada) > 4.5f) || (ball.transform.position.x > 11 && Mathf.Abs(transform.position.y - posicionEsperada) > 3f))
             {
                 activarPoder();
             }
@@ -56,6 +58,8 @@ public class PaddleIA : MonoBehaviour
             if (timer > 0)
             {
                 timer -= Time.deltaTime;
+                cooldownPoderUI.transform.GetChild(1).gameObject.SetActive(false);
+                cooldownPoderUI.transform.GetChild(2).gameObject.SetActive(true);
             }
             else
             {
@@ -64,16 +68,22 @@ public class PaddleIA : MonoBehaviour
                     desactivarPoder();
                     cooldown = 30;
                     enCooldown = true;
+                    cooldownPoderUI.transform.GetChild(1).gameObject.SetActive(true);
+                    cooldownPoderUI.transform.GetChild(2).gameObject.SetActive(false);
+                    cooldownPoderUI.transform.GetChild(3).gameObject.SetActive(true);
                 }
             }
             if (cooldown > 0 && enCooldown)
             {
                 cooldown -= Time.deltaTime;
+                cooldownPoderUI.transform.GetChild(0).GetComponent<Image>().fillAmount = 1f - (cooldown / 30f);
             }
             else if (cooldown <= 0 && enCooldown)
             {
                 if (!poder)
                 {
+                    cooldownPoderUI.transform.GetChild(0).GetComponent<Image>().fillAmount = 1;
+                    cooldownPoderUI.transform.GetChild(3).gameObject.SetActive(false);
                     enCooldown = false;
                     poder = true;
                 }
@@ -92,6 +102,10 @@ public class PaddleIA : MonoBehaviour
         cooldown = 0;
         poder = true;
         enCooldown = false;
+        cooldownPoderUI.transform.GetChild(1).gameObject.SetActive(true);
+        cooldownPoderUI.transform.GetChild(2).gameObject.SetActive(false);
+        cooldownPoderUI.transform.GetChild(3).gameObject.SetActive(false);
+        cooldownPoderUI.transform.GetChild(0).GetComponent<Image>().fillAmount = 1;
         desactivarPoder();
         transform.position = new Vector3(transform.position.x, 0, 0);
         activo = true;
