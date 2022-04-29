@@ -26,7 +26,7 @@ public class trazarRuta : MonoBehaviour
             BallMovementManager manager = collision.GetComponent<BallMovementManager>();
             if (manager.speed.x > 0 )
             {
-                Debug.Log("angulo: "+Vector2.Angle(new Vector2(1, 0),new Vector2(manager.speed.x,manager.speed.y).normalized));
+                //Debug.Log("angulo: "+Vector2.Angle(new Vector2(1, 0),new Vector2(manager.speed.x,manager.speed.y).normalized));
                 if (manager.speed.y >= 0)
                 {
                     distY = ((Mathf.Tan(Vector2.Angle(new Vector2(1, 0), new Vector2(manager.speed.x, manager.speed.y).normalized) * Mathf.Deg2Rad)) * (13.5f));
@@ -50,7 +50,7 @@ public class trazarRuta : MonoBehaviour
                     {
                         distY = ((Mathf.Tan(Vector2.Angle(new Vector2(1, 0), new Vector2(manager.speed.x, manager.speed.y).normalized) * Mathf.Deg2Rad)) * (13.5f));
                     }
-                    Debug.Log("distancia en velocidad hacia abajo: " + distY);
+                    //Debug.Log("distancia en velocidad hacia abajo: " + distY);
                     distParaLimiteInferior = 9.5f + collision.transform.position.y;
                     if (distParaLimiteInferior < Mathf.Abs(distY))
                     {

@@ -17,6 +17,7 @@ public class MovementManager : MonoBehaviour
     public bool poder = true;
     public bool enCooldown = false;
     public GameObject cooldownPoderUI;
+    public float elinput;
 
     private void Update()
     {
@@ -32,19 +33,21 @@ public class MovementManager : MonoBehaviour
             {
                 movement = Input.GetAxis("Mouse Y");
             }
-
+            elinput = movement;
             Vector3 actualPos = GetComponent<Transform>().position;
             /*GetComponent<Transform>().position = new Vector3(
                     actualPos.x,
                     Mathf.Clamp(actualPos.y + (speed * movement * Time.deltaTime), -limite, limite),
                     actualPos.z
             );*/
-            if (transform.position.y <= limite && transform.position.y >= -limite)
+            if (tipo==TipoJugador.JUGADOR2 && movement!=0)
             {
-                transform.position = Vector3.MoveTowards(transform.position, new Vector3(actualPos.x, actualPos.y + 10, actualPos.z), movement * speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, new Vector3(actualPos.x, actualPos.y + 10, actualPos.z), movement/Mathf.Abs(movement) * speed * Time.deltaTime);
             }
-            else if (transform.position.y < -limite) { transform.position = new Vector3(transform.position.x, -limite, 0); }
-            else { transform.position = new Vector3(transform.position.x, limite, 0); }
+            else { transform.position = Vector3.MoveTowards(transform.position, new Vector3(actualPos.x, actualPos.y + 10, actualPos.z), movement * speed * Time.deltaTime); }
+            
+            if (transform.position.y < -limite) { transform.position = new Vector3(transform.position.x, -limite, 0); }
+            else if(transform.position.y > limite) { transform.position = new Vector3(transform.position.x, limite, 0); }
 
 
             if (timer > 0)
